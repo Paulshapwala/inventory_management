@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, sessionmaker, Mapped, mapped_column
 from sqlalchemy.sql import func
-from setup import Base, Session
+from setup import Base
 import datetime
 
 class User(Base):
@@ -14,7 +14,7 @@ class User(Base):
     transactions:Mapped[list["Transaction"]] = relationship(back_populates="user")
 
     def __repr__(self):
-       return f"user:{self.username!r} id:{self.id!r} admin:{self.isAdmin!r}"
+       return f"user:{self.username!r} id:{self.id!r} admin:{self.isAdmin!r} pass:wet{self.password!r}"
     
 
 class Password(Base):
@@ -25,7 +25,7 @@ class Password(Base):
     # relationships
     user:Mapped["User"] = relationship(back_populates="password", uselist=False)
     def __repr__(self):
-        return f"userId:{self.userId!r} password:{self.password_hash!r}"
+        return f"{self.password_hash!r}"
 
 
 class Product(Base):
