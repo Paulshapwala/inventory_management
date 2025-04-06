@@ -13,3 +13,6 @@ logs/
 # Ignore virtual environments  
 venv/  
 .venv/  
+
+# Ignore tests
+tests/
