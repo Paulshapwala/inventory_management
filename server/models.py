@@ -15,18 +15,18 @@ class User(Base):
     username:Mapped[str] = mapped_column(String(64))
     isAdmin:Mapped[bool]
        # relationships
-    password:Mapped["Password"] = relationship(back_populates="user",cascade="all, delete-orphan")
+    password:Mapped["Password"] = relationship(back_populates="user",uselist=False,cascade="all, delete-orphan")
     transactions:Mapped[list["Transaction"]] = relationship(back_populates="user")
 
     def __repr__(self):
-       return f"user:{self.username!r} id:{self.id!r} admin:{self.isAdmin!r} pass:wet{self.password!r}"
+       return f"user:{self.username!r} id:{self.id!r} admin:{self.isAdmin!r} pass:{self.password!r}"
     
 
 class Password(Base):
     __tablename__ = "passwords"
     id:Mapped[int]  = mapped_column(primary_key=True)
     password_hash:Mapped[str] = mapped_column(String(64))
-    userId:Mapped[int] = mapped_column(ForeignKey("users.id"))
+    userId:Mapped[int] = mapped_column(ForeignKey("users.id",ondelete="CASCADE"))
     # relationships
     user:Mapped["User"] = relationship(back_populates="password", uselist=False)
     def __repr__(self):

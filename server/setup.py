@@ -17,4 +17,4 @@ class Base(DeclarativeBase):
     })
 
 engine = create_engine(os.environ["DATABASE_URL"])
-# Session = sessionmaker(engine)
+
