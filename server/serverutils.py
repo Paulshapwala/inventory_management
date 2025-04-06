@@ -1,6 +1,10 @@
-import models
+import sys
+import os
+# Add the parent directory containing 'app' to your path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from server import models
 from sqlalchemy import select
-from setup import Session, engine
 
 
 class UserCRUD():

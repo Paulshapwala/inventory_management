@@ -1,7 +1,12 @@
+import sys
+import os
+# Add the parent directory containing 'app' to your path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, sessionmaker, Mapped, mapped_column
 from sqlalchemy.sql import func
-from setup import Base
+from server.setup import Base
 import datetime
 
 class User(Base):
