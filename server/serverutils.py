@@ -57,7 +57,7 @@ class ProductCRUD():
     @staticmethod
     def get_product():
         # TODO map this with button
-        return {"name":"oranges", "category":"fruits" ,"quantity":5 ,"price":5.6,}
+        return {"name":"banana", "category":"fruits" ,"quantity":5 ,"price":5.6,}
     
 
     @staticmethod
@@ -76,25 +76,54 @@ class ProductCRUD():
         session.add(product)
         session.commit()
         print("Item added")
+        
     class Modification:
         @staticmethod
-        def delete_product(session:Session,name:str, id:int=None):
-            stmt = select(models.Product).where(models.Product.name==name)
+        def _get_product_to_modify(session: Session, name: str, id: int = None):
+            """This is a useful get product method for modification functions"""
+            stmt = select(models.Product).where(models.Product.name == name)
             products = session.scalars(stmt).all()
+            
             if not products:
                 print(f"{name} does not exist")
-                return
-            elif len(products) > 1:
-                id_list = []
-                for product in products:
-                    id_list.append(product.id)
-                id = ProductCRUD.get_id(id_list)
-                stmt = session.query(models.Product).filter_by(id=id).first()
+                return None
+            
+            # If multiple products found with the same name
+            if len(products) > 1:
+                id_list = [product.id for product in products]
                 
+                # Check if the provided ID is valid for the products with this name
+                if id is not None and id in id_list:
+                    return session.get(models.Product, id)
+                else:
+                    # If no ID provided or ID invalid, ask for ID selection
+                    selected_id = ProductCRUD.get_id(id_list)
+                    return session.get(models.Product, selected_id)
             else:
-                stmt = session.query(models.User).filter_by(username=name).first()
-
-            session.delete(stmt)
+                # If only one product found
+                return products[0]
+        @staticmethod
+        def delete_product(session:Session,name:str, id:int=None):
+            product = ProductCRUD.Modification._get_product_to_modify(session,name,id)
+            session.delete(product)
             session.commit()
+            print(f"{name} deleted!")
 
+        @staticmethod
+        def change_quantity(session: Session, name: str, new_quantity: int,id: int = None):
+            product = ProductCRUD.Modification._get_product_to_modify(session,name,id)
+            product.quantity = new_quantity
+            session.commit()
+            print(f"Price for '{name}' updated to {new_quantity}")
+
+        @staticmethod
+        def change_price(session:Session, name:str, new_price:float, id:int = None):
+            product = ProductCRUD.Modification._get_product_to_modify(session,name,id)
+            product.price = new_price
+            session.commit()
+            print(f"Price for '{name}' updated to {new_price}")
+
+        
+
+            
 

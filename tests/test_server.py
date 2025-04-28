@@ -13,6 +13,9 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 # serverutils.UserCRUD.createUser(session, "Paul", True)
+# serverutils.ProductCRUD.add_product(session)
 
-
-serverutils.UserCRUD.delete_user(session,"Paul")
+# serverutils.UserCRUD.delete_user(session,"Paul")
+# serverutils.ProductCRUD.Modification.delete_product(session, "apples")
+# serverutils.ProductCRUD.Modification.change_quantity(session,"banana",new_quantity=17)
+serverutils.ProductCRUD.Modification.change_price(session, "banana", 28.9)

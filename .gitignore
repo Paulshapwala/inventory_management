@@ -15,4 +15,4 @@ venv/
 .venv/  
 
 # Ignore tests
-tests/
+tests/test_server.py
