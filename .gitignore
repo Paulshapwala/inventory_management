@@ -16,3 +16,4 @@ venv/
 
 # Ignore tests
 tests/test_server.py
+tests/test_server.py
