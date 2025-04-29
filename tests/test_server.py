@@ -8,6 +8,10 @@ from sqlalchemy.orm import sessionmaker
 engine = setup.engine
 Base = setup.Base
 # Base.metadata.drop_all(engine)
+# Base.metadata.transactionItems.drop(engine)
+# Base.metadata.transactions.drop(engine)
+
+
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
@@ -19,4 +23,4 @@ session = Session()
 # serverutils.ProductCRUD.Modification.delete_product(session, "apples")
 # serverutils.ProductCRUD.Modification.change_quantity(session,"banana",new_quantity=17)
 # serverutils.ProductCRUD.Modification.change_price(session, "banana", 28.9)
-serverutils.Transaction.create_transaction(session,1,[(12,4),(13,6),(11,2)])
+serverutils.Transaction.create_transaction(session,6,[(11,2)])

@@ -8,6 +8,23 @@ from sqlalchemy.orm import relationship, sessionmaker, Mapped, mapped_column
 from sqlalchemy.sql import func
 from server.setup import Base
 import datetime
+from datetime import datetime, timezone, timedelta
+
+
+def get_time_stamp():
+    """
+    Get current UTC time, add 3 hours offset, and round seconds to the nearest second.
+    """
+
+    current_time = datetime.now(timezone.utc) + timedelta(hours=3)
+
+    if current_time.microsecond >= 500000:
+        rounded_time = current_time.replace(microsecond=0) + timedelta(seconds=1)
+    else:
+        rounded_time = current_time.replace(microsecond=0)
+    
+    return rounded_time
+
 
 class User(Base):
     __tablename__ = "users"
@@ -52,7 +69,7 @@ class Transaction(Base):
     __tablename__ = "transactions"
     id:Mapped[int] = mapped_column(primary_key=True)
     userId:Mapped[int] = mapped_column(ForeignKey("users.id"))
-    timeStamp:Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=func.now())
+    timeStamp:Mapped[datetime] = mapped_column(DateTime(timezone=True), default=get_time_stamp)
     # relationships
     items: Mapped[list["TransactionItem"]] = relationship(back_populates="transaction", cascade="all, delete-orphan")
     user:Mapped["User"] = relationship(back_populates="transactions")
