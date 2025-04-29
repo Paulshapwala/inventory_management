@@ -123,7 +123,70 @@ class ProductCRUD():
             session.commit()
             print(f"Price for '{name}' updated to {new_price}")
 
+
+class Transaction():
+    @staticmethod
+    def create_transaction(session: Session, user_id: int, item_list: list[tuple]):
+        """
+        Creates a transaction with multiple items for a user.
         
-
+        Args:
+            session: Database session
+            user_id: ID of the user making the purchase
+            item_list: List of tuples (product_id, quantity)
             
-
+        Returns:
+            The created transaction object
+            
+        Raises:
+            ValueError: If any product has insufficient quantity
+        """
+        # Validate quantities first before making any changes
+        insufficient_items = []
+        
+        for product_id, quantity in item_list:
+            if not isinstance(quantity, int) or quantity <= 0:
+                raise ValueError(f"Invalid quantity {quantity} for product {product_id}. Quantity must be a positive integer.")
+                
+            product = session.get(models.Product, product_id)
+            if product.quantity < quantity:
+                insufficient_items.append((product_id, product.name, product.quantity, quantity))
+        
+        # If any items have insufficient quantity, raise an error with details
+        if insufficient_items:
+            error_msg = "Cannot complete transaction due to insufficient inventory:\n"
+            for prod_id, name, available, requested in insufficient_items:
+                error_msg += f"- Product ID {prod_id} ({name}): Requested {requested}, Available {available}\n"
+            raise ValueError(error_msg)
+            
+        try:
+            # Create transaction record
+            transaction = models.Transaction(userId=user_id)
+            session.add(transaction)
+            
+            # Process each item
+            for product_id, quantity in item_list:
+                # Get the product and its current price
+                product = session.get(models.Product, product_id)
+                
+                # Create transaction item
+                transaction_item = models.TransactionItem(
+                    productId=product_id,
+                    priceAtTime=product.price,
+                    quantity=quantity
+                )
+                
+                # Add item to transaction
+                transaction.items.append(transaction_item)
+                
+                # Update product inventory
+                product.quantity -= quantity
+            
+            # Commit all changes to database
+            session.commit()
+            return transaction
+            
+        except Exception as e:
+            # Roll back transaction in case of any error
+            session.rollback()
+            raise RuntimeError(f"Transaction failed: {str(e)}")
