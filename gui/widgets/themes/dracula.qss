@@ -22,3 +22,4 @@ QPushButton:checked {
     border-left: 3px solid #ff79c6;
     font-weight: 600;
 }
+
