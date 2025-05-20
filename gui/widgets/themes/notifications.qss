@@ -1,0 +1,200 @@
+/* Notification Bell QSS Style Sheet */
+
+/* Notification Menu */
+QMenu#notificationMenu {
+    background-color: #282a36;  /* Dracula background */
+    border: 1px solid #44475a;  /* Dracula current line */
+    border-radius: 4px;
+    padding: 5px;
+    min-width: 300px;
+}
+
+QMenu#notificationMenu::item {
+   /* Notification Bell QSS Style Sheet */
+
+/* Notification Menu */
+QMenu#notificationMenu {
+    background-color: #282a36;  /* Dracula background */
+    border: 1px solid #44475a;  /* Dracula current line */
+    border-radius: 4px;
+    padding: 5px;
+    min-width: 300px;
+}
+
+QMenu#notificationMenu::item {
+    padding: 8px 15px;
+    border-radius: 3px;
+    color: #f8f8f2;  /* Dracula foreground */
+}
+
+QMenu#notificationMenu::item:selected {
+    background-color: #44475a;  /* Dracula selection */
+}
+
+QMenu#notificationMenu::separator {
+    height: 1px;
+    background: #44475a;  /* Dracula current line */
+    margin: 5px 10px;
+}
+
+/* Header and Empty Notification Styles */
+QLabel#notificationHeader {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px;
+    background-color: #44475a;  /* Dracula current line */
+    border-bottom: 1px solid #6272a4;  /* Dracula comment */
+    min-width: 280px;
+    qproperty-alignment: AlignCenter;
+    color: #bd93f9;  /* Dracula purple */
+}
+
+QLabel#emptyNotification {
+    padding: 20px;
+    color: #6272a4;  /* Dracula comment */
+    min-width: 280px;
+    min-height: 60px;
+    font-size: 14px;
+    qproperty-alignment: AlignCenter;
+    background-color: #282a36;  /* Dracula background */
+}
+
+/* Notification Items - Dracula theme compatible */
+QLabel.notificationItem {
+    background-color: #282a36;  /* Dracula background */
+    padding: 12px;
+    border-bottom: 1px solid #44475a;  /* Dracula current line */
+    margin: 0px;
+    color: #f8f8f2;  /* Dracula foreground */
+}
+
+QLabel.notificationItem:hover {
+    background-color: #44475a;  /* Dracula current line */
+}
+
+/* Title and Message Styles - Note these are applied via HTML in code */
+/* 
+   Title: <span class="notification-title">Your Title</span>
+   Message: <span class="notification-message">Your message</span>
+*/
+
+/* ScrollArea Styling */
+QScrollArea#notificationScrollArea {
+    border: none;
+    background-color: #282a36;  /* Dracula background */
+}
+
+QScrollArea#notificationScrollArea QScrollBar:vertical {
+    border: none;
+    background: #282a36;  /* Dracula background */
+    width: 8px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollArea#notificationScrollArea QScrollBar::handle:vertical {
+    background: #6272a4;  /* Dracula comment */
+    min-height: 20px;
+    border-radius: 4px;
+}
+
+QScrollArea#notificationScrollArea QScrollBar::add-line:vertical,
+QScrollArea#notificationScrollArea QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+/* Bell Icon Widget */
+QLabel#notificationBell {
+    padding: 2px;
+}
+
+QLabel#notificationBell:hover {
+    background-color: rgba(200, 200, 200, 0.2);
+    border-radius: 16px;
+    border-radius: 3px;
+    color: #f8f8f2;  /* Dracula foreground */
+}
+
+QMenu#notificationMenu::item:selected {
+    background-color: #44475a;  /* Dracula selection */
+}
+
+QMenu#notificationMenu::separator {
+    height: 1px;
+    background: #44475a;  /* Dracula current line */
+    margin: 5px 10px;
+}
+
+/* Header and Empty Notification Styles */
+QLabel#notificationHeader {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px;
+    background-color: #44475a;  /* Dracula current line */
+    border-bottom: 1px solid #6272a4;  /* Dracula comment */
+    min-width: 280px;
+    qproperty-alignment: AlignCenter;
+    color: #bd93f9;  /* Dracula purple */
+}
+
+QLabel#emptyNotification {
+    padding: 20px;
+    color: #6272a4;  /* Dracula comment */
+    min-width: 280px;
+    min-height: 60px;
+    font-size: 14px;
+    qproperty-alignment: AlignCenter;
+    background-color: #282a36;  /* Dracula background */
+}
+
+/* Notification Items - Dracula theme compatible */
+QLabel.notificationItem {
+    background-color: #282a36;  /* Dracula background */
+    padding: 12px;
+    border-bottom: 1px solid #44475a;  /* Dracula current line */
+    margin: 0px;
+    color: #f8f8f2;  /* Dracula foreground */
+}
+
+QLabel.notificationItem:hover {
+    background-color: #44475a;  /* Dracula current line */
+}
+
+/* Title and Message Styles - Note these are applied via HTML in code */
+/* 
+   Title: <span class="notification-title">Your Title</span>
+   Message: <span class="notification-message">Your message</span>
+*/
+
+/* ScrollArea Styling */
+QScrollArea#notificationScrollArea {
+    border: none;
+    background-color: #282a36;  /* Dracula background */
+}
+
+QScrollArea#notificationScrollArea QScrollBar:vertical {
+    border: none;
+    background: #282a36;  /* Dracula background */
+    width: 8px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollArea#notificationScrollArea QScrollBar::handle:vertical {
+    background: #6272a4;  /* Dracula comment */
+    min-height: 20px;
+    border-radius: 4px;
+}
+
+QScrollArea#notificationScrollArea QScrollBar::add-line:vertical,
+QScrollArea#notificationScrollArea QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+/* Bell Icon Widget */
+QLabel#notificationBell {
+    padding: 2px;
+}
+
+QLabel#notificationBell:hover {
+    background-color: rgba(200, 200, 200, 0.2);
+    border-radius: 16px;
+}
