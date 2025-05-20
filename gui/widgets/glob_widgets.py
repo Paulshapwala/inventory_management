@@ -1,11 +1,11 @@
 """This module contains globally applied widgets"""
 
-import sys
-from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
-                            QLabel, QPushButton, QStackedLayout, QFrame, QSizePolicy, QSlider)
-from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QIcon, QFont, QColor, QPalette
-
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
+    QListWidget, QFrame
+)
+from PyQt5.QtGui import QIcon, QPixmap, QFont, QColor, QPainter
+from PyQt5.QtCore import Qt, QPoint, QRect, QSize
 
 def load_theme(path):
         with open(path, "r") as f:
