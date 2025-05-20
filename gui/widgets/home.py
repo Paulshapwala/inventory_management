@@ -1,83 +1,51 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                             QLabel, QPushButton, QStackedLayout, QFrame, QSizePolicy, QSlider)
-from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QIcon, QFont, QColor, QPalette
+from PyQt5.QtCore import Qt, QSize, QTimer, QTime
+from PyQt5.QtGui import QIcon, QFont, QColor, QPalette, QPixmap
 from glob_widgets import NavigationWidget, load_theme
+from notifications import ClickableNotificationBell
 
-class HomeWidget(QWidget):    
-    def __init__(self, parent=None):
-        super().__init__(parent)
+class HomeWidget(QWidget):
+    
+    def __init__(self):
+        super().__init__()
         self.setObjectName("homeWidget")
+        self.clock_label = QLabel()
+        self.timer = QTimer()
         self.setup_ui()
         
     def setup_ui(self):
         main_layout = QVBoxLayout()
         main_layout.setContentsMargins(20, 20, 20, 20)
         
-        # Set base styling for all text
-        self.setStyleSheet("""
-            QLabel {
-                color: #f8f8f2;
-            }
-            QWidget#homeWidget {
-                background-color: #282a36;
-            }
-        """)
-        
         # Header section
         header_layout = QHBoxLayout()
         greeting_label = QLabel("Morning, James")
-        greeting_label.setFont(QFont("Arial", 24, QFont.Bold))
+        greeting_label.setFont(QFont("Arial", 18, QFont.Bold))
         
-        toggle_layout = QHBoxLayout()
-        toggle_layout.setSpacing(10)
-        
-        toggle_label = QLabel("Turned Disabled")
-        toggle_label.setFont(QFont("Arial", 16))
-        
-        # Custom toggle slider that matches Dracula theme
-        toggle_slider = QSlider(Qt.Horizontal)
-        toggle_slider.setFixedSize(70, 26)
-        toggle_slider.setRange(0, 1)
-        toggle_slider.setValue(0)  # Default to disabled
-        toggle_slider.setStyleSheet("""
-            QSlider::groove:horizontal {
-                border: 1px solid #44475a;
-                height: 20px;
-                background: #44475a;
-                margin: 0px;
-                border-radius: 10px;
-            }
-            QSlider::handle:horizontal {
-                background: #ff79c6;
-                border: 1px solid #ff79c6;
-                width: 24px;
-                height: 24px;
-                margin: -2px 0px;
-                border-radius: 12px;
-            }
-        """)
-        
-        toggle_layout.addWidget(toggle_label)
-        toggle_layout.addWidget(toggle_slider)
-        toggle_layout.setAlignment(Qt.AlignRight)
-        
+        # timer section
+        self.clock_label.setFont(QFont("Arial", 16)) 
+        self.timer.timeout.connect(self.update_time)
+        self.timer.start(1000)  # Update every 1000ms (1 second)
+        self.update_time()
+
+        header_layout.addSpacing(100)
         header_layout.addWidget(greeting_label)
-        header_layout.addLayout(toggle_layout)
+        header_layout.addStretch()
+        header_layout.addWidget(self.clock_label)
         main_layout.addLayout(header_layout)
         
         main_layout.addSpacing(30)
         
         # Notifications section
-        notifications_label = QLabel("🔔 Notifications")
-        notifications_label.setFont(QFont("Arial", 18, QFont.Bold))
-        main_layout.addWidget(notifications_label)
-        
-        no_notifications = QLabel("No new notifications")
-        no_notifications.setFont(QFont("Arial", 14))
-        no_notifications.setStyleSheet("color: #bd93f9;")
-        main_layout.addWidget(no_notifications)
+        bell_icon = ClickableNotificationBell()
+        bell_icon.add_notification("Testing","Notification 1")
+        bell_icon.add_notification("Welcome","welcome new user?")
+        Notifications_layout = QHBoxLayout()
+        Notifications_layout.addStretch(1)
+        Notifications_layout.addWidget(bell_icon)
+        main_layout.addLayout(Notifications_layout)
         
         main_layout.addSpacing(20)
         
@@ -173,6 +141,10 @@ class HomeWidget(QWidget):
         main_layout.addStretch()
         
         self.setLayout(main_layout)
+
+    def update_time(self):
+        current_time = QTime.currentTime().toString("hh:mm:ss")
+        self.clock_label.setText(current_time)
 
 
 class InventoryApp(QMainWindow):
