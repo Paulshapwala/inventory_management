@@ -9,9 +9,6 @@ QMenu#notificationMenu {
     min-width: 300px;
 }
 
-QMenu#notificationMenu::item {
-   /* Notification Bell QSS Style Sheet */
-
 /* Notification Menu */
 QMenu#notificationMenu {
     background-color: #282a36;  /* Dracula background */
@@ -38,9 +35,9 @@ QMenu#notificationMenu::separator {
 }
 
 /* Header and Empty Notification Styles */
-QLabel#notificationHeader {
+#notificationHeader {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
     padding: 10px;
     background-color: #44475a;  /* Dracula current line */
     border-bottom: 1px solid #6272a4;  /* Dracula comment */

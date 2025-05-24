@@ -22,13 +22,13 @@ class NotificationLabel(QLabel):
         self.setWordWrap(True)
         # HTML content with classes for styling via QSS
         content = f"""<div>
-            <span class="notification-title" style="font-weight:bold;color:#bd93f9;font-size:14px;">{title}</span><br>
-            <span class="notification-message" style="color:#f8f8f2;">{message}</span>
+            <span class="notification-title" style="font-weight:bold;color:#bd93f9;font-size:18px;">{title}</span><br>
+            <span class="notification-message" style="color:#f8f8f2;font-size:18px">{message}</span>
         </div>"""
         self.setText(content)
         self.setObjectName("notificationItem")
         self.setProperty("class", "notificationItem")  # For QSS styling
-        self.setMinimumWidth(280)
+        self.setMinimumWidth(200)
 
 class ClickableNotificationBell(QLabel):
     """Clickable notification bell with badge counter"""
@@ -65,12 +65,15 @@ class ClickableNotificationBell(QLabel):
     
     def load_styles(self):
         """Load styles from QSS file"""
-        qss_path = os.path.join(os.path.dirname(__file__), "styles", "notification_styles.qss")
+        qss_path = os.path.join(os.path.dirname(__file__), "themes", "notifications.qss")
         if os.path.exists(qss_path):
+            print(qss_path)
             with open(qss_path, "r") as f:
                 stylesheet = f.read()
                 # Apply stylesheet to the menu
                 self.menu.setStyleSheet(stylesheet)
+        else:
+            print("not found")
         
     def add_notification(self, title, message):
         """Add a new notification to the list"""
